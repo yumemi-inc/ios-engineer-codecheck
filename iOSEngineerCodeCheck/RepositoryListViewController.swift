@@ -19,6 +19,7 @@ class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        searchBar.placeholder = "Tap here to search repositories with name."
         searchBar.delegate = self
     }
     
