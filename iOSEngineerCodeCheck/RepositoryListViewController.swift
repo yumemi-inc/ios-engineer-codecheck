@@ -8,13 +8,15 @@
 
 import UIKit
 
-class RepositoryListViewController: UITableViewController {
+class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        searchBar.delegate = self
     }
-
 
 }
 
