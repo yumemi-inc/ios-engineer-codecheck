@@ -37,10 +37,26 @@ class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
                 let object = try! JSONSerialization.jsonObject(with: data!) as! [String: Any]
                 let items = object["items"] as! [[String: Any]]
                 self.repositories = items
-                print(items)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
             dataTask?.resume()
         }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return repositories.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Repository", for: indexPath)
+        let repository = repositories[indexPath.row]
+        cell.textLabel?.text = repository["full_name"] as? String
+        cell.detailTextLabel?.text = repository["language"] as? String
+        return cell
         
     }
     
