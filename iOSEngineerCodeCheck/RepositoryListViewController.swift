@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RepositoryListViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class RepositoryListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
