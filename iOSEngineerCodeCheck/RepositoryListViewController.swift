@@ -46,6 +46,18 @@ class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "Detail" {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)!
+            let repository = repositories[indexPath.row]
+            let detail = segue.destination as! RepositoryDetailViewController
+            detail.repository = repository
+        }
+        
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count
     }
@@ -57,6 +69,13 @@ class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
         cell.textLabel?.text = repository["full_name"] as? String
         cell.detailTextLabel?.text = repository["language"] as? String
         return cell
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        performSegue(withIdentifier: "Detail", sender: cell)
         
     }
     
