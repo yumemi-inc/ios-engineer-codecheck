@@ -1,5 +1,5 @@
 //
-//  RepositoryListViewController.swift
+//  ViewController.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/20.
@@ -8,7 +8,11 @@
 
 import UIKit
 
+<<<<<<< HEAD:iOSEngineerCodeCheck/RepositoryListViewController.swift
 class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
+=======
+class ViewController: UIViewController {
+>>>>>>> parent of 6b40088... Rename initial vc to RepositoryListViewController:iOSEngineerCodeCheck/ViewController.swift
 
     @IBOutlet weak var searchBar: UISearchBar!
     
