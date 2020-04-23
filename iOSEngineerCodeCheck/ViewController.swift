@@ -46,6 +46,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
                     }
                 }
             }
+        // これ呼ばなきゃリストが更新されません
         task?.resume()
         }
         
@@ -67,7 +68,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Repository")
+        let cell = UITableViewCell()
         let rp = repo[indexPath.row]
         cell.textLabel?.text = rp["full_name"] as? String ?? ""
         cell.detailTextLabel?.text = rp["language"] as? String ?? ""
