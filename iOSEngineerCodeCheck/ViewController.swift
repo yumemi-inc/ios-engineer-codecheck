@@ -12,9 +12,12 @@ class ViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var SchBr: UISearchBar!
     
-    var repositories: [[String: Any]] = []
+    var repo: [[String: Any]]=[]
     
-    var data_task: URLSessionTask?
+    var task: URLSessionTask?
+    var word: String!
+    var url: String!
+    var idx: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,58 +27,59 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        data_task?.cancel()
+        task?.cancel()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        let word = searchBar.text!
+        word = searchBar.text!
         
         if word.count != 0 {
-            let url = "https://api.github.com/search/repositories?q=\(word)"
-            data_task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-                let object = try! JSONSerialization.jsonObject(with: data!) as! [String: Any]
-                let items = object["items"] as! [[String: Any]]
-                self.repositories = items
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+            url = "https://api.github.com/search/repositories?q=\(word!)"
+            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
+                if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
+                    if let items = obj["items"] as? [[String: Any]] {
+                    self.repo = items
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    }
                 }
             }
-            data_task?.resume()
+        task?.resume()
         }
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "Detail" {
-            let cell = sender as! UITableViewCell
-            let indexPath = tableView.indexPath(for: cell)!
-            let repository = repositories[indexPath.row]
-            let detail = segue.destination as! ViewController2
-            detail.repository = repository
+        if segue.identifier == "Detail"{
+            let rp = repo[idx]
+            let dtl = segue.destination as! ViewController2
+            dtl.repo = rp
         }
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositories.count
+        return repo.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Repository", for: indexPath)
-        let repository = repositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String
-        cell.detailTextLabel?.text = repository["language"] as? String
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Repository")
+        let rp = repo[indexPath.row]
+        cell.textLabel?.text = rp["full_name"] as? String ?? ""
+        cell.detailTextLabel?.text = rp["language"] as? String ?? ""
+        cell.tag = indexPath.row
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.cellForRow(at: indexPath)
-        performSegue(withIdentifier: "Detail", sender: cell)
+        // 画面遷移時に呼ばれる
+        idx = indexPath.row
+        performSegue(withIdentifier: "Detail", sender: self)
         
     }
     
