@@ -56,7 +56,7 @@ class ViewController: UIViewController {
             let cell = sender as! UITableViewCell
             let indexPath = tableView.indexPath(for: cell)!
             let repository = repositories[indexPath.row]
-            let detail = segue.destination as! RepositoryDetailViewController
+            let detail = segue.destination as! ViewController2
             detail.repository = repository
         }
         

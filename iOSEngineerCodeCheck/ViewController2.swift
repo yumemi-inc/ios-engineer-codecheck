@@ -1,5 +1,5 @@
 //
-//  RepositoryDetailViewController.swift
+//  ViewController2.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by 史 翔新 on 2020/04/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepositoryDetailViewController: UIViewController {
+class ViewController2: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
