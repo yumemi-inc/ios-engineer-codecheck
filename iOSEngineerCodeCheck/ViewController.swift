@@ -8,11 +8,7 @@
 
 import UIKit
 
-<<<<<<< HEAD:iOSEngineerCodeCheck/RepositoryListViewController.swift
-class RepositoryListViewController: UITableViewController, UISearchBarDelegate {
-=======
-class ViewController: UIViewController {
->>>>>>> parent of 6b40088... Rename initial vc to RepositoryListViewController:iOSEngineerCodeCheck/ViewController.swift
+class ViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
