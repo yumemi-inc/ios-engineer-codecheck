@@ -22,8 +22,14 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        SchBr.placeholder = "Tap here to search repositories with name."
+        SchBr.text = "GitHubのリポジトリを検索できるよー"
         SchBr.delegate = self
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        // ↓こうすれば初期のテキストを消せる
+        searchBar.text = ""
+        return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
