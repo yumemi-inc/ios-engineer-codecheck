@@ -10,21 +10,21 @@ import UIKit
 
 class ViewController: UITableViewController, UISearchBarDelegate {
 
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var SchBr: UISearchBar!
     
     var repositories: [[String: Any]] = []
     
-    var dataTask: URLSessionTask?
+    var data_task: URLSessionTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        searchBar.placeholder = "Tap here to search repositories with name."
-        searchBar.delegate = self
+        SchBr.placeholder = "Tap here to search repositories with name."
+        SchBr.delegate = self
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        dataTask?.cancel()
+        data_task?.cancel()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -33,7 +33,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         
         if word.count != 0 {
             let url = "https://api.github.com/search/repositories?q=\(word)"
-            dataTask = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+            data_task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
                 let object = try! JSONSerialization.jsonObject(with: data!) as! [String: Any]
                 let items = object["items"] as! [[String: Any]]
                 self.repositories = items
@@ -41,7 +41,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
                     self.tableView.reloadData()
                 }
             }
-            dataTask?.resume()
+            data_task?.resume()
         }
         
     }
