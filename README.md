@@ -34,6 +34,10 @@ Issues を確認した上、本プロジェクトを [**Duplicate** してくだ
 | 新卒／未経験者 | 必須 | 選択 | 選択 |
 | 中途／経験者 | 必須 | 必須 | 選択 |
 
+
+課題 Issueをご自身のリポジトリーにコピーするGitHub Actionsをご用意しております。  
+[こちらのWorkflow](./.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
+
 課題が完成したら、リポジトリーのアドレスを教えてください。
 
 ## 参考記事

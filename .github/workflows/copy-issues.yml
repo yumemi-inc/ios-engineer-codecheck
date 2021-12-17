@@ -1,0 +1,135 @@
+name: "Copy issues"
+on:
+  workflow_dispatch:
+
+jobs:
+  get-issue-labels:
+    if: github.repository != 'yumemi-inc/ios-engineer-codecheck'
+    runs-on: ubuntu-latest
+    outputs:
+      labels: ${{ steps.output_label_data.outputs.value }}
+    steps:
+    - name: Getting Labels data
+      id: get_label_data
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: GET /repos/yumemi-inc/ios-engineer-codecheck/labels
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - id: output_label_data
+      run: |
+        result=$(echo '${{ steps.get_label_data.outputs.data }}' | sed -z 's/\n//g')
+        echo "::set-output name=value::${result}"
+
+  create-issue-labels:
+    needs: get-issue-labels
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        label: ${{ fromJson(needs.get-issue-labels.outputs.labels) }}
+    steps:
+    - name: Create a label
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: POST /repos/${{ github.repository }}/labels
+        name: ${{ matrix.label.name }}
+        color: ${{ matrix.label.color }}
+        description: ${{ matrix.label.description }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  get-milestones:
+    if: github.repository != 'yumemi-inc/ios-engineer-codecheck'
+    runs-on: ubuntu-latest
+    outputs:
+      milestones: ${{ steps.output_milestones_data.outputs.value }}
+    steps:
+    - name: Getting Milestones data
+      id: get_milestones_data
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: GET /repos/yumemi-inc/ios-engineer-codecheck/milestones
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - id: output_milestones_data
+      run: |
+        result=$(echo '${{ steps.get_milestones_data.outputs.data }}' | sed -z 's/\n//g')
+        echo "::set-output name=value::${result}"
+
+  create-milestones:
+    needs: get-milestones
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        milestone: ${{ fromJson(needs.get-milestones.outputs.milestones) }}
+    steps:
+    - name: Create a milestone
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: POST /repos/${{ github.repository }}/milestones
+        title: ${{ matrix.milestone.title }}
+        description: ${{ matrix.milestone.description }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  get-myrepo-milestones:
+    needs: create-milestones
+    runs-on: ubuntu-latest
+    outputs:
+      milestones: ${{ steps.output_milestones_data.outputs.value }}
+    steps:
+    - name: Getting Milestones data
+      id: get_milestones_data
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: GET /repos/${{ github.repository }}/milestones
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - id: output_milestones_data
+      run: |
+        result=$(echo '${{ steps.get_milestones_data.outputs.data }}' | sed -z 's/\n//g')
+        echo "::set-output name=value::${result}"
+
+  get-issues:
+    if: github.repository != 'yumemi-inc/ios-engineer-codecheck'
+    runs-on: ubuntu-latest
+    outputs:
+      issues: ${{ steps.output_issues_data.outputs.value }}
+    steps:
+    - name: Getting issues data
+      id: get_issues_data
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: GET /repos/yumemi-inc/ios-engineer-codecheck/issues
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - id: output_issues_data
+      run: |
+        result=$(echo '${{ steps.get_issues_data.outputs.data }}' | sed -z 's/\n//g')
+        echo "::set-output name=value::${result}"
+
+  create-issues:
+    needs: [create-issue-labels, get-myrepo-milestones, get-issues]
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix: 
+        issue: ${{ fromJson(needs.get-issues.outputs.issues) }}
+    steps:
+    - name: Find milestone
+      id: find-milestone
+      run: |
+        milestones='${{ needs.get-myrepo-milestones.outputs.milestones }}'
+        milestone_number=$(echo ${milestones} | jq '.[] | select (.title=="${{ matrix.issue.milestone.title }}") | .number' )
+        echo "::set-output name=number::${milestone_number}"
+    - name: Create a issue
+      if: ${{ matrix.issue.pull_request == null }}
+      uses: octokit/request-action@v2.1.0
+      with:
+        route: POST /repos/${{ github.repository }}/issues
+        title: ${{ matrix.issue.title }}
+        body: ${{ matrix.issue.body }}
+        labels: ${{ toJson(matrix.issue.labels.*.name) }}
+        milestone: ${{ steps.find-milestone.outputs.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
