@@ -112,6 +112,7 @@ jobs:
     needs: [create-issue-labels, get-myrepo-milestones, get-issues]
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix: 
         issue: ${{ fromJson(needs.get-issues.outputs.issues) }}
     steps:
