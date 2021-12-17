@@ -36,7 +36,7 @@ Issues を確認した上、本プロジェクトを [**Duplicate** してくだ
 
 
 課題 Issueをご自身のリポジトリーにコピーするGitHub Actionsをご用意しております。  
-[こちらのWorkflow](https://github.com/yumemi-inc/ios-engineer-codecheck/blob/main/.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
+[こちらのWorkflow](./.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
 
 課題が完成したら、リポジトリーのアドレスを教えてください。
 
