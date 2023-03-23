@@ -42,5 +42,8 @@ Issues を確認した上、本プロジェクトを [**Duplicate** してくだ
 
 ## 参考記事
 
-提出された課題の評価ポイントに関しては、[こちらの記事](https://qiita.com/lovee/items/d76c68341ec3e7beb611)に詳しく書かれてありますので、ぜひご覧ください。
-ライブラリの利用に関しては [こちらの記事](https://qiita.com/ykws/items/b951a2e24ca85013e722)も参照ください。
+提出された課題の評価ポイントについても詳しく書かれてありますので、ぜひご覧ください。
+
+- [私が（iOS エンジニアの）採用でコードチェックする時何を見ているのか](https://qiita.com/lovee/items/d76c68341ec3e7beb611)
+- [CocoaPods の利用手引き](https://qiita.com/ykws/items/b951a2e24ca85013e722)
+- [ChatGPT (Model: GPT-4) でコードリファクタリングをやってみる](https://qiita.com/mitsuharu_e/items/213491c668ab75924cfd)
