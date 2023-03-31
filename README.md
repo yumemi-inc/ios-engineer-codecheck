@@ -48,5 +48,5 @@ Issues を確認した上、本プロジェクトを [**Duplicate** してくだ
 - [CocoaPods の利用手引き](https://qiita.com/ykws/items/b951a2e24ca85013e722)
 - [ChatGPT (Model: GPT-4) でコードリファクタリングをやってみる](https://qiita.com/mitsuharu_e/items/213491c668ab75924cfd)
 
-ChatGTPなどAIサービスの利用は禁止しておりません。  
+ChatGPTなどAIサービスの利用は禁止しておりません。  
 利用にあたって工夫したプロンプトやソースコメント等をご提出頂くと加点評価する場合がございます。 (減点評価はありません)
