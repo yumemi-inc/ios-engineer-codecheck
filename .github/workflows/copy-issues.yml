@@ -24,6 +24,8 @@ jobs:
   create-issue-labels:
     needs: get-issue-labels
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     strategy:
       matrix: 
         label: ${{ fromJson(needs.get-issue-labels.outputs.labels) }}
@@ -59,6 +61,8 @@ jobs:
   create-milestones:
     needs: get-milestones
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     strategy:
       matrix: 
         milestone: ${{ fromJson(needs.get-milestones.outputs.milestones) }}
@@ -135,6 +139,8 @@ jobs:
   create-issues:
     needs: [create-issue-labels, get-myrepo-milestones, get-issues, get-myrepo-issues]
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     strategy:
       max-parallel: 1
       matrix: 
