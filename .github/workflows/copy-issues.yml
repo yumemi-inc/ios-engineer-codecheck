@@ -79,6 +79,8 @@ jobs:
   get-myrepo-milestones:
     needs: create-milestones
     runs-on: ubuntu-latest
+    permissions:
+      issues: read
     outputs:
       milestones: ${{ steps.output_milestones_data.outputs.value }}
     steps:
@@ -118,6 +120,8 @@ jobs:
   get-myrepo-issues:
     if: github.repository != 'yumemi-inc/ios-engineer-codecheck'
     runs-on: ubuntu-latest
+    permissions:
+      issues: read
     outputs:
       issues: ${{ steps.output_issues_data.outputs.value }}
     steps:
