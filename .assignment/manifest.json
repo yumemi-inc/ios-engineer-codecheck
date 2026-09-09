@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "assignment_version": "swiftui-2026-09",
+  "labels": [
+    {
+      "name": "初級",
+      "color": "ed9c9f",
+      "description": "全応募者がクリアする課題です。"
+    },
+    {
+      "name": "中級",
+      "color": "dbb969",
+      "description": "中途・経験者はクリアが必要です。新卒・未経験者は任意です。"
+    },
+    {
+      "name": "ボーナス",
+      "color": "ade261",
+      "description": "全応募者が任意で取り組む加点課題です。同じ変更を他の課題と重ねて評価せず、求められる課題の未クリアは補いません。"
+    }
+  ],
+  "milestones": [
+    {
+      "title": "課題",
+      "description": ""
+    }
+  ],
+  "issues": [
+    {
+      "id": "beginner-maintainability",
+      "order": 10,
+      "title": "コードを整理し、変更・検証しやすくする",
+      "body": "issues/beginner-01-maintainability.md",
+      "labels": ["初級"],
+      "milestone": "課題"
+    },
+    {
+      "id": "beginner-stability",
+      "order": 20,
+      "title": "主要フローを調査し、安定させる",
+      "body": "issues/beginner-02-stability.md",
+      "labels": ["初級"],
+      "milestone": "課題"
+    },
+    {
+      "id": "intermediate-development-harness",
+      "order": 30,
+      "title": "開発のフィードバックループを構築する",
+      "body": "issues/intermediate-01-development-harness.md",
+      "labels": ["中級"],
+      "milestone": "課題"
+    },
+    {
+      "id": "intermediate-pagination",
+      "order": 40,
+      "title": "検索結果を複数ページ読み込めるようにする",
+      "body": "issues/intermediate-02-pagination.md",
+      "labels": ["中級"],
+      "milestone": "課題"
+    },
+    {
+      "id": "bonus-experience",
+      "order": 50,
+      "title": "利用体験を改善する",
+      "body": "issues/bonus-01-experience.md",
+      "labels": ["ボーナス"],
+      "milestone": "課題"
+    },
+    {
+      "id": "bonus-value",
+      "order": 60,
+      "title": "独自の価値を追加する",
+      "body": "issues/bonus-02-value.md",
+      "labels": ["ボーナス"],
+      "milestone": "課題"
+    }
+  ]
+}

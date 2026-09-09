@@ -8,6 +8,7 @@
 
 import XCTest
 
+@MainActor
 class iOSEngineerCodeCheckUITests: XCTestCase {
 
     override func setUpWithError() throws {

@@ -1,0 +1,37 @@
+name: Import assignment issues
+
+on:
+  workflow_dispatch:
+    inputs:
+      update_existing:
+        description: Overwrite previously imported assignment issues
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: import-assignment-issues-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.repository != 'yumemi-inc/ios-engineer-codecheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Import assignment issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ASSIGNMENT_SOURCE_SHA: ${{ github.sha }}
+          UPDATE_EXISTING: ${{ inputs.update_existing }}
+        run: |
+          args=()
+          if [[ "$UPDATE_EXISTING" == "true" ]]; then
+            args+=(--update-existing)
+          fi
+          ./scripts/import-assignment-issues.sh "${args[@]}"
